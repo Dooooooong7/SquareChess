@@ -2,26 +2,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class MapGenerator : MonoBehaviour
+public class MapGenerator : Singleton<MapGenerator>
 {
     [Header("地图配置")]
     public Room roomPrefab;
     
-    [FormerlySerializedAs("roomDataSO")] [Header("房间数据SO")]
-    public MapDataSO mapDataSo; // 存储所有房间数据
-
-
+    [FormerlySerializedAs("mapDataSo")] [FormerlySerializedAs("roomDataSO")] [Header("房间数据SO")]
+    public MapDataSO mapDataSO; // 存储所有房间数据
     private List<Room> roomList = new();
-
+    public int totalLevel;
+    public int currentLevel;
+    public float difficultyMultiplier;
+    public LevelProgressDataSO levelProgressDataSO;
+    public ObjectEventSO loadStartEventSO;
+    
     private void OnEnable()
     {
-        if (mapDataSo == null)
+        if (mapDataSO == null)
         {
             Debug.LogError("MapDataSO 未赋值！");
             return;
         }
 
-        if (mapDataSo.roomSaveDataList == null || mapDataSo.roomSaveDataList.Count == 0)
+        if (mapDataSO.roomSaveDataList == null || mapDataSO.roomSaveDataList.Count == 0)
         {
             Debug.Log("RoomDataSO为空，生成新地图");
             GenerateNewMap();
@@ -34,10 +37,10 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    private void GenerateNewMap()
+    public void GenerateNewMap()
     {
         roomList.Clear();
-        mapDataSo.roomSaveDataList = new List<RoomSaveData>();
+        mapDataSO.roomSaveDataList = new List<RoomSaveData>();
 
         for (int i = 0; i < 3; i++)
         {
@@ -46,11 +49,12 @@ public class MapGenerator : MonoBehaviour
             {
                 serialNum = i,
                 roomType = type,
-                roomState = RoomState.Locked,
-                roundNum = 0,
-                enemyPerRound = new List<int> { 2, 3, 4 } // 随便给一个初始的敌人数量列表
+                roomState = i == 0? RoomState.Attainable : RoomState.Locked,
+                roundNum = 3,
+                enemyPerRound = new List<int> { 2, 1, 0 }, 
+                heroPerRound = new List<int> { 3, 2, 1 } 
             };
-            mapDataSo.roomSaveDataList.Add(saveData);// 添加到保存数据列表
+            mapDataSO.roomSaveDataList.Add(saveData);// 添加到保存数据列表
 
             // 实例化房间
             Room newRoom = Instantiate(roomPrefab, transform);
@@ -62,11 +66,21 @@ public class MapGenerator : MonoBehaviour
             roomList.Add(newRoom);
         }
     }
+    
+    public void ClearMap()
+    {
+        foreach (var room in roomList)
+        {
+            Destroy(room.gameObject);
+        }
+        roomList.Clear();
+        mapDataSO.roomSaveDataList.Clear();
+    }
 
     private void SaveRoomData()
     {
 #if UNITY_EDITOR
-        UnityEditor.EditorUtility.SetDirty(mapDataSo);
+        UnityEditor.EditorUtility.SetDirty(mapDataSO);
         UnityEditor.AssetDatabase.SaveAssets();
         Debug.Log("MapDataSO 保存成功！");
 #endif
@@ -74,7 +88,23 @@ public class MapGenerator : MonoBehaviour
 
     private void LoadMap()
     {
-        foreach (var saveData in mapDataSo.roomSaveDataList)
+        if (mapDataSO.roomSaveDataList[2].roomState == RoomState.Visited)
+        {
+            Debug.Log("该层已通过，生成新地图");
+            ClearMap();
+            if (++levelProgressDataSO.currentLevel <= levelProgressDataSO.totalLevels)
+            {
+                GenerateNewMap();
+                return;
+            }
+            else
+            {
+                Debug.Log("游戏结束，返回开始界面");
+                loadStartEventSO.RaiseEvent(null,this);
+                return;
+            }
+        }
+        foreach (var saveData in mapDataSO.roomSaveDataList)
         {
             Room newRoom = Instantiate(roomPrefab, transform);
             newRoom.SetupRoom(saveData);
@@ -85,4 +115,14 @@ public class MapGenerator : MonoBehaviour
             roomList.Add(newRoom);
         }
     }
+
+    //生成新的游戏进度
+    public void SetLevelData(object value = null)
+    {
+        levelProgressDataSO.currentLevel = 1;
+        levelProgressDataSO.totalLevels = 3;
+        levelProgressDataSO.difficultyMultiplier = 1.0f;
+        GenerateNewMap();
+    }
+    
 }

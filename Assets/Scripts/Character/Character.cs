@@ -8,6 +8,7 @@ public abstract class Character : MonoBehaviour
     public int health;
     public int attack;
     public int defense;
+    
 
     public virtual void TakeDamage(int damage)
     {
@@ -15,7 +16,7 @@ public abstract class Character : MonoBehaviour
         health -= damageTaken;
         if (health <= 0)
         {
-            // Die();
+            Die();
         }
     }
 
@@ -27,6 +28,6 @@ public abstract class Character : MonoBehaviour
     protected virtual void Die()
     {
         Debug.Log(characterName + " has died.");
-        Destroy(gameObject);
+        BattleManager.Instance.enemiesDefeated++;
     }
 }

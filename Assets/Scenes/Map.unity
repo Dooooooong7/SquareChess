@@ -247,6 +247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1971471512}
   - component: {fileID: 1971471513}
+  - component: {fileID: 1971471514}
   m_Layer: 0
   m_Name: MapGenerater
   m_TagString: Untagged
@@ -282,7 +283,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 3845153492375120961, guid: ef6f9ec9f6e36a64f9914a70ce58cb5b, type: 3}
-  mapDataSo: {fileID: 11400000, guid: 49b6078d8267d4d499a985302265bd9c, type: 2}
+  mapDataSO: {fileID: 11400000, guid: 49b6078d8267d4d499a985302265bd9c, type: 2}
+  totalLevel: 0
+  currentLevel: 0
+  difficultyMultiplier: 0
+  levelProgressDataSO: {fileID: 11400000, guid: 40bf8d09c10b7cd47b6e0dc9b8b02786, type: 2}
+  loadStartEventSO: {fileID: 11400000, guid: 55a54e65f629f1b4bafaed8ddafd3e9a, type: 2}
+--- !u!114 &1971471514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971471511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45a2158c1cbf1b4eafb990f4800442f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSO: {fileID: 11400000, guid: e093c36457f2ecb479bf6ae186cbac65, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1971471513}
+        m_TargetAssemblyTypeName: MapGenerator, Assembly-CSharp
+        m_MethodName: SetLevelData
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

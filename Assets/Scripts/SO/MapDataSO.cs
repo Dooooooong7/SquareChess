@@ -16,4 +16,5 @@ public class RoomSaveData
     public RoomType roomType;
     public int roundNum;
     public List<int> enemyPerRound;
+    public List<int> heroPerRound;
 }

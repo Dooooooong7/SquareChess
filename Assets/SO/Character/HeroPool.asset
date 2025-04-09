@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7600041aecc10604a928658779d67617, type: 3}
   m_Name: HeroPool
   m_EditorClassIdentifier: 
-  heroPoolList:
+  heroList:
+  - {fileID: 2583330853097909938, guid: d414e3c6a4ebd8047a31a7cffb39489a, type: 3}
+  - {fileID: 2583330853097909938, guid: d414e3c6a4ebd8047a31a7cffb39489a, type: 3}
+  - {fileID: 2583330853097909938, guid: d414e3c6a4ebd8047a31a7cffb39489a, type: 3}
   - {fileID: 2583330853097909938, guid: d414e3c6a4ebd8047a31a7cffb39489a, type: 3}
   - {fileID: 2583330853097909938, guid: d414e3c6a4ebd8047a31a7cffb39489a, type: 3}
   - {fileID: 2583330853097909938, guid: d414e3c6a4ebd8047a31a7cffb39489a, type: 3}

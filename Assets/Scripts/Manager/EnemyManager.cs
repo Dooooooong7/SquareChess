@@ -1,20 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
-    public List<Enemy> enemyPrefabList;
-    public EnemyType enemyType { get; set; }
+    [FormerlySerializedAs("enemyPrefabList")] public EnemyPoolSO enemyPoolSO;
     public Enemy nowEnemy;
-    public List<Cell> cellList;
-    // public int cardNum { get; set; } = 4;
-    public int restCell = 25;
-    public int enemyTypeNum;
+
     
     public void ClearChessBoard()
     {
-        foreach (var cell in cellList)
+        foreach (var cell in CellManager.Instance.cellList)
         {
             cell.isEmpty = true;
 
@@ -32,39 +29,69 @@ public class EnemyManager : Singleton<EnemyManager>
             }
         }
 
-        restCell = 25;
+        CellManager.Instance.restCell = 25;
     }
     
     public void ProduceEnemy(int cardNum)
     {
         for (int i = 0; i < cardNum; i++)
         {
-            if (restCell > 0)
+            if (CellManager.Instance.restCell > 0)
             {
-                int randIndex = Random.Range(0, 24);
-                while (!cellList[randIndex].GetComponent<Cell>().isEmpty)
-                {
-                    randIndex = Random.Range(0, 24);
-                }
-                restCell--;
-                cellList[randIndex].GetComponent<Cell>().isEmpty = false;
-                var enemyIndex = Random.Range(0, enemyTypeNum);
-                enemyType = (EnemyType)enemyIndex;
-                // Debug.Log(enemyIndex);
-                Enemy enemyPrefab = GetEnemyPrefab();
+                var randIndex = GetRandomCell();//获取敌人生成的方格
+                CellManager.Instance.restCell--;
+                CellManager.Instance.cellList[randIndex].GetComponent<Cell>().isEmpty = false;
+                var enemy = GetRandomEnemy();
+                Enemy enemyPrefab = GetEnemyPrefab(enemy.enemyType);
                 if (enemyPrefab != null)
                 {
-                    nowEnemy = Instantiate(enemyPrefab,cellList[randIndex].transform); 
+                    nowEnemy = Instantiate(enemyPrefab,CellManager.Instance.cellList[randIndex].transform); 
                     nowEnemy.transform.localPosition = new Vector3(0,-0.5f,0);
                 }
                 
             }
         }
     }
-
-    public Enemy GetEnemyPrefab()
+    
+    public bool AreAllCellsEmpty()
     {
-        foreach (var enemyPrefab in enemyPrefabList)
+        foreach (var cell in CellManager.Instance.cellList)
+        {
+            if (!cell.isEmpty && cell.GetComponentInChildren<Enemy>() != null)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private int GetRandomCell()
+    {
+        int randIndex = Random.Range(0, 24);
+        while (!CellManager.Instance.cellList[randIndex].GetComponent<Cell>().isEmpty)
+        {
+            randIndex = Random.Range(0, 24);
+        }
+        return randIndex;
+    }
+
+    private Enemy GetRandomEnemy()
+    {
+        if (enemyPoolSO.enemyList == null || enemyPoolSO.enemyList.Count == 0)
+        {
+            // Debug.Log("敌人列表为空！");
+            return null;
+        }
+        
+        int randomIndex = Random.Range(0, enemyPoolSO.enemyList.Count);
+        Enemy enemy = enemyPoolSO.enemyList[randomIndex];
+        return enemy;
+    }
+
+    
+    private Enemy GetEnemyPrefab(EnemyType enemyType)
+    {
+        foreach (var enemyPrefab in enemyPoolSO.enemyList)
         {
             if (enemyType == enemyPrefab.enemyType)
             {
@@ -73,18 +100,6 @@ public class EnemyManager : Singleton<EnemyManager>
         }
 
         return null;
-    }
-    
-    public bool AreAllCellsEmpty()
-    {
-        foreach (var cell in cellList)
-        {
-            if (!cell.isEmpty && cell.GetComponentInChildren<Enemy>() != null)
-            {
-                return false;
-            }
-        }
-        return true;
     }
     
 }

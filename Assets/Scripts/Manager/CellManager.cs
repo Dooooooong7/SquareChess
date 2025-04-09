@@ -1,28 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CellManager : MonoBehaviour
+public class CellManager : Singleton<CellManager>
 {
-    public static CellManager Instance { get; private set; }
-    public List<Cell> cells;
+    public List<Cell> cellList = new();
+    public int restCell;
 
-    private void Awake()
+    private void OnEnable()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            InitializeCells();
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void InitializeCells()
-    {
-        cells = new List<Cell>(FindObjectsOfType<Cell>());
+        restCell = cellList.Count;
     }
 }

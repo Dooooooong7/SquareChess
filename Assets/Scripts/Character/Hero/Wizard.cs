@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Wizard : Hero
 {
-    public List<Enemy> enemiesInRange = new List<Enemy>();
-
     private void Update()
     {
         if (canAttack)
@@ -56,6 +54,7 @@ public class Wizard : Hero
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        Debug.Log( "collision");
         if (other.CompareTag("Enemy"))
         {
             Enemy enemy = other.GetComponent<Enemy>();
@@ -65,9 +64,4 @@ public class Wizard : Hero
             }
         }
     }
-
-    // private void OnCollisionStay2D(Collision2D other)
-    // {
-    //     Debug.Log(22222);
-    // }
 }

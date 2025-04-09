@@ -14,17 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomSaveDataList:
   - serialNum: 0
-    roomState: 0
+    roomState: 2
     roomType: 0
-    roundNum: 0
+    roundNum: 2
     enemyPerRound: 020000000300000004000000
+    heroPerRound: 010000000200000003000000
   - serialNum: 1
     roomState: 0
     roomType: 0
-    roundNum: 0
+    roundNum: 2
     enemyPerRound: 020000000300000004000000
+    heroPerRound: 010000000200000003000000
   - serialNum: 2
     roomState: 0
     roomType: 2
-    roundNum: 0
+    roundNum: 2
     enemyPerRound: 020000000300000004000000
+    heroPerRound: 010000000200000003000000

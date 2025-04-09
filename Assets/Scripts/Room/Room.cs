@@ -10,7 +10,8 @@ public class Room : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public RoomSaveData roomSaveData;
     public int roundNum;
-    public List<int> enemyPerRound; 
+    public List<int> enemyPerRound;
+    public List<int> heroPerRound;
     
     private void Awake()
     {
@@ -24,12 +25,13 @@ public class Room : MonoBehaviour
         this.serialNum = roomSaveData.serialNum;
         this.roundNum = roomSaveData.roundNum;
         this.enemyPerRound = new List<int>(roomSaveData.enemyPerRound); // 根据RoomSaveData初始化敌人信息
+        this.heroPerRound = new List<int>(roomSaveData.heroPerRound); // 根据RoomSaveData初始化英雄信息
     
         // 设置房间的颜色和状态
         roomState = roomSaveData.roomState;
         spriteRenderer.color = roomState switch
         {
-            RoomState.Locked => Color.white,
+            RoomState.Locked => new Color(0.8f, 0.8f, 0.8f, 1f),
             RoomState.Visited => new Color(0.5f, 0.5f, 0.5f, 0.5f),
             RoomState.Attainable => Color.white,
             _ => spriteRenderer.color

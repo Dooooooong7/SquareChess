@@ -4,71 +4,56 @@ using UnityEngine;
 
 public class HandManager : Singleton<HandManager>
 {
-    
-    public List<Hero> heroPrefabList;
+    public HeroPoolSO heroPoolSO;
+    public List<Hero> availableHeroes = new();//可选英雄列表
+    private List<Hero> heroesInBattle = new();//或可删除
     public HeroType heroType { get; set; }
     public Hero nowHero;
     public Cards nowCard;
     public bool hasHero = false;
-    private List<Hero> heroesInBattle = new List<Hero>();//战斗列表
-
-    public HeroPool_SO heroPool;
-    public List<Cards> cardsPrefabList;
-    private int[] _isUsed = new int[100];
-    private int _restHeroes;
-    public Transform cardBar;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        heroPool.heroPoolList.Clear();
-        CreateInitialHeroes(7);
-    }
-
-    public void CreateInitialHeroes(int num)
-    {
-        for (int i = 0; i < num; i++)
-        {
-            var index = Random.Range(0, heroPrefabList.Count);
-            Debug.Log(index);
-            heroPool.heroPoolList.Add(heroPrefabList[index]);
-        }
-    }
-
-    public void ClearHeroUsed()
-    {
-        Debug.Log(heroPool.heroPoolList.Count);
-        for (int i = 0; i < heroPool.heroPoolList.Count; i++)
-        {
-            _isUsed[i] = 0;
-        }
-        _restHeroes = heroPool.heroPoolList.Count;
-    }
     
+    public List<Cards> cardsPrefabList;
+    public Transform cardBar;
+    
+    public void InitializeList()
+    {
+        availableHeroes = new List<Hero>(heroPoolSO.heroList);
+    }
     
     public void CreateHeroesThisRound(int num)
     {
         for (int i = 0; i < num; i++)
         {
-          if (_restHeroes > 0)
+          if (availableHeroes.Count > 0)
           { 
-              var index = Random.Range(0, heroPool.heroPoolList.Count);
-              while (_isUsed[index] > 0)
-              {
-                  index = Random.Range(0, heroPool.heroPoolList.Count);
-              }
-              _isUsed[index] = 1;
-              _restHeroes--;
-              for (int j = 0; j < cardsPrefabList.Count; j++)
-              {
-                if (heroPool.heroPoolList[index].heroType == cardsPrefabList[j].heroType)
-                {
-                    Instantiate(cardsPrefabList[j], cardBar);
-                    break;
-                }
-              }    
+              var hero = GetRandomHero();
+              var cardPrefab = GetHeroCardPrefab(hero.heroType);
+              Instantiate(cardPrefab, cardBar);
+              heroesInBattle.Add(hero);
           }
         }  
+    }
+    
+    // 获取随机英雄
+    private Hero GetRandomHero()
+    {
+        int randIndex = Random.Range(0, availableHeroes.Count);
+        var hero = availableHeroes[randIndex];
+        availableHeroes.RemoveAt(randIndex);
+        return hero;
+    }
+    
+    //获取手牌栏图标预制体
+    private Cards GetHeroCardPrefab(HeroType heroType)
+    {
+        foreach (var cardPrefab in cardsPrefabList)
+        {
+            if (heroType == cardPrefab.heroType)
+            {
+                return cardPrefab;
+            }
+        }
+        return null;
     }
     
     /// <summary>
@@ -76,11 +61,11 @@ public class HandManager : Singleton<HandManager>
     /// </summary>
     /// <param name="cell">一个棋盘格</param>
     /// <returns></returns>
-    public bool OnCellClick(Cell cell)
+    public bool PlacePrefabInCell(Cell cell)
     {
         if (hasHero)//当前已经选中了英雄
         {
-            Hero heroPrefab = GetHeroPrefab();//获取预制体
+            Hero heroPrefab = GetHeroPrefab(heroType);//获取预制体
 
             if (heroPrefab == null)//预制体为空时
             {
@@ -95,7 +80,8 @@ public class HandManager : Singleton<HandManager>
                 
                 hasHero = false;
                 cell.isEmpty = false;
-                EnemyManager.Instance.restCell--;
+                CellManager.Instance.restCell--;
+                cell.heroAtCell = nowHero;
                 return true;
             }
         }
@@ -108,9 +94,9 @@ public class HandManager : Singleton<HandManager>
     /// 获取当前英雄类型对应的prefab
     /// </summary>
     /// <returns></returns>
-    public Hero GetHeroPrefab()
+    public Hero GetHeroPrefab(HeroType heroType)
     {
-        foreach (var heroPrefab in heroPrefabList)
+        foreach (var heroPrefab in heroPoolSO.heroList)
         {
             if (heroType == heroPrefab.heroType)
             {

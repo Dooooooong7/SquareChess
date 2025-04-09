@@ -7,15 +7,9 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     private static T _instance;
 
-    public static T Instance
-    {
-        get
-        {
-            return _instance;
-        }
-    }
+    public static T Instance => _instance;
 
-    protected virtual void Awake()
+    protected virtual void Awake() //懒汉式
     {
         _instance = this as T;
     }
