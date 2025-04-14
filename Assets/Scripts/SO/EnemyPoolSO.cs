@@ -5,5 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyPool", menuName = "Character/EnemyPoolSO")]
 public class EnemyPoolSO : ScriptableObject
 {
-    public List<Enemy> enemyList = new();
+    public List<EnemyEntry> enemyList = new();
+}
+
+[System.Serializable]
+public class EnemyEntry
+{
+    public Enemy enemy;  // 键
+    public int count;  // 值
 }

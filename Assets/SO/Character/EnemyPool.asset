@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: EnemyPool
   m_EditorClassIdentifier: 
   enemyList:
-  - {fileID: 6411888211392263472, guid: ecab84942a4ba0c4e91e62bb7b9c45ac, type: 3}
+  - enemy: {fileID: 6411888211392263472, guid: ecab84942a4ba0c4e91e62bb7b9c45ac, type: 3}
+    count: 10

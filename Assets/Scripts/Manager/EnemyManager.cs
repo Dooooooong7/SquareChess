@@ -82,20 +82,50 @@ public class EnemyManager : Singleton<EnemyManager>
             // Debug.Log("敌人列表为空！");
             return null;
         }
-        
-        int randomIndex = Random.Range(0, enemyPoolSO.enemyList.Count);
-        Enemy enemy = enemyPoolSO.enemyList[randomIndex];
-        return enemy;
+
+        // 计算总权重（所有敌人数量的总和）
+        int totalWeight = 0;
+        foreach (var entry in enemyPoolSO.enemyList)
+        {
+            totalWeight += entry.count; // 权重为敌人数量
+        }
+
+        // 获取一个 0 到 totalWeight 之间的随机数
+        int randomWeight = Random.Range(0, totalWeight);
+
+        // 遍历所有敌人，根据数量（权重）选择一个敌人
+        int cumulativeWeight = 0;
+        foreach (var entry in enemyPoolSO.enemyList)
+        {
+            cumulativeWeight += entry.count;
+
+            // 当累计权重大于随机数时，选中当前敌人
+            if (randomWeight < cumulativeWeight)
+            {
+                // // 减少该敌人的数量
+                // entry.count--;
+                //
+                // // 如果数量为0了，移除该敌人
+                // if (entry.count == 0)
+                // {
+                //     enemyPoolSO.enemyList.Remove(entry);
+                // }
+
+                // 返回选中的敌人
+                return entry.enemy;
+            }
+        }
+
+        return null; // 如果没有选中敌人，返回空（这种情况不应该发生）
     }
 
-    
     private Enemy GetEnemyPrefab(EnemyType enemyType)
     {
-        foreach (var enemyPrefab in enemyPoolSO.enemyList)
+        foreach (var entry in enemyPoolSO.enemyList)
         {
-            if (enemyType == enemyPrefab.enemyType)
+            if (enemyType == entry.enemy.enemyType)
             {
-                return enemyPrefab;
+                return entry.enemy;
             }
         }
 

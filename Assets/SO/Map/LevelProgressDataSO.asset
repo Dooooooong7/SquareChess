@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae43ee52971e0041824a94d48d441bd, type: 3}
   m_Name: LevelProgressDataSO
   m_EditorClassIdentifier: 
-  currentLevel: 5
+  currentLevel: 1
   totalLevels: 3
   difficultyMultiplier: 1

@@ -12,6 +12,7 @@ public class BattleManager : Singleton<BattleManager>
     public List<int> heroesPerRound;
     public ObjectEventSO loadMapEventSO;
     public ObjectEventSO gameOverEventSO;
+    public ObjectEventSO endTurnEventSO;
     public int enemiesDefeated;
     public int enemiesTotal;
     
@@ -44,16 +45,11 @@ public class BattleManager : Singleton<BattleManager>
     
     public IEnumerator StartNewRound()
     {
-        // 除第一回合外，开始下一回合前结算攻击
+        // 除第一回合外，开始下一回合前等待攻击结算
         if (currentRound > 1)
         {
             yield return StartCoroutine(ExecuteAttack());
-            // 如果击败全部敌人
-            if (enemiesDefeated >= enemiesTotal)
-            {
-                loadMapEventSO.RaiseEvent(null, this);
-                yield break;
-            }
+            yield return StartCoroutine(ExcuteBuff());
         }
         if (currentRound <= totalRounds)
         {
@@ -83,14 +79,28 @@ public class BattleManager : Singleton<BattleManager>
                 // 执行攻击操作
                 cell.heroAtCell.Attack();  // 假设 Hero 类有一个 Attack 方法
                 Debug.Log($"英雄 {cell.heroAtCell.name} 攻击了敌人！");
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(1.5f);
             }
             else
             {
                 yield return new WaitForSeconds(0.05f);
             }
             cell.spriteRenderer.enabled = false; 
+            
+            // 检查是否击败全部敌人
+            if (enemiesDefeated >= enemiesTotal)
+            {
+                loadMapEventSO.RaiseEvent(null, this);
+                // TODO: get buff
+                yield break;
+            }
         }
+    }
+
+    private IEnumerator ExcuteBuff()
+    {
+        endTurnEventSO.RaiseEvent(null,this);
+        yield return new WaitForSeconds(1f);
     }
     
 }

@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 6411888211392263472}
   - component: {fileID: 6717547086391931780}
   - component: {fileID: -1069134215739402886}
+  - component: {fileID: 3946968022000506261}
+  - component: {fileID: -5451277753775992055}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Enemy
@@ -153,6 +155,7 @@ MonoBehaviour:
   health: 10
   attack: 0
   defense: 0
+  buffHandler: {fileID: 0}
   enemyType: 0
   anim: {fileID: 0}
   textMeshPro: {fileID: 0}
@@ -205,6 +208,47 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &3946968022000506261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4584955525044857723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b348327f300eb164aa00708ffb2632a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffs: []
+--- !u!114 &-5451277753775992055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4584955525044857723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45a2158c1cbf1b4eafb990f4800442f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSO: {fileID: 11400000, guid: 64d330b58ac942b4a9b6ed077990ab04, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3946968022000506261}
+        m_TargetAssemblyTypeName: BuffHandler, Assembly-CSharp
+        m_MethodName: EndTurn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8307987668475756439
 GameObject:
   m_ObjectHideFlags: 0

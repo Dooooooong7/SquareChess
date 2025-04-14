@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7600041aecc10604a928658779d67617, type: 3}
-  m_Name: HeroPool
+  m_Script: {fileID: 11500000, guid: 0a329cd0c37f45e47bef25bea1679da0, type: 3}
+  m_Name: AttackEventSO
   m_EditorClassIdentifier: 
-  heroList:
-  - hero: {fileID: 2583330853097909938, guid: d414e3c6a4ebd8047a31a7cffb39489a, type: 3}
-    count: 10
+  description: 
+  lastSender: 

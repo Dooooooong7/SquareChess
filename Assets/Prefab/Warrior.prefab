@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -6687482784511900206}
   - component: {fileID: 6597896531127118137}
   - component: {fileID: -4745796102204028080}
+  - component: {fileID: 863077912306917786}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Untagged
@@ -110,8 +111,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: 
   health: 0
-  attack: 5
+  attack: 0
   defense: 0
+  buffHandler: {fileID: 0}
   heroType: 0
   nowEnemy: {fileID: 0}
   canAttack: 0
@@ -214,6 +216,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &863077912306917786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304969992307712207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b348327f300eb164aa00708ffb2632a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffs:
+  - {fileID: 11400000, guid: a519c659eb5da8f4685dc33b44f92db6, type: 2}
 --- !u!1 &1082051477911677800
 GameObject:
   m_ObjectHideFlags: 0

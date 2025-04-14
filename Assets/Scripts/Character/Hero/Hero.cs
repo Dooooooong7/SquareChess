@@ -15,8 +15,9 @@ public class Hero : Character
     public List<SpriteRenderer> attackRange;
     public TextMeshPro textMeshPro;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         anim = GetComponent<Animator>();
         attackRange = GetComponentsInChildren<SpriteRenderer>(true)
             .Where(sr => sr.gameObject != this.gameObject)

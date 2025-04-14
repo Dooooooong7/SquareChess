@@ -10,8 +10,9 @@ public class Enemy : Character
     public Animator anim;
     public TextMeshPro textMeshPro;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         anim = GetComponent<Animator>();
         textMeshPro = GetComponentInChildren<TextMeshPro>();
         textMeshPro.text = health.ToString();

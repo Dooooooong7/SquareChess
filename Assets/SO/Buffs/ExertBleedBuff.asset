@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a329cd0c37f45e47bef25bea1679da0, type: 3}
-  m_Name: NextTurnEventSO
+  m_Script: {fileID: 11500000, guid: 06fd8046120715b408292e71a5e7a41f, type: 3}
+  m_Name: ExertBleedBuff
   m_EditorClassIdentifier: 
-  description: 
-  lastSender: 
+  TriggerType: 1
+  isActive: 1
+  target: {fileID: 0}
+  caster: {fileID: 0}
