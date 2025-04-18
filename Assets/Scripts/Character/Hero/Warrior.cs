@@ -14,7 +14,6 @@ public class Warrior : Hero
             int randomIndex = UnityEngine.Random.Range(0, enemiesInRange.Count);
             return enemiesInRange[randomIndex];
         }
-
         return null;
     }
 

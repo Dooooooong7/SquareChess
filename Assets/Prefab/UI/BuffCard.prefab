@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6703835254898247643}
   - component: {fileID: 893560634246576122}
   - component: {fileID: 2134586744924846032}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: BuffInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8077131313865806416}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -66,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "      \u5F53\u5F13\u7BAD\u624B\u4E0E\u6218\u58EB\u76F8\u90BB\u65F6\uFF0C\u5F13\u7BAD\u624B\u7684\u653B\u51FB\u529B+1"
+  m_text: '      '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 998dec19390933348aca839278d3e170, type: 2}
   m_sharedMaterial: {fileID: 1695405700204359675, guid: 998dec19390933348aca839278d3e170, type: 2}
@@ -109,15 +108,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -145,8 +146,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8077131313865806416}
   - component: {fileID: 5816464605475070781}
+  - component: {fileID: -3299108750590747802}
   m_Layer: 5
-  m_Name: Buff
+  m_Name: BuffCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,7 +170,6 @@ RectTransform:
   - {fileID: 8604879268340647819}
   - {fileID: 6703835254898247643}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -215,10 +216,49 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 6825295763404054102}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -3299108750590747802}
+        m_TargetAssemblyTypeName: BuffCard, Assembly-CSharp
+        m_MethodName: AddBuffToHero
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -3299108750590747802}
+        m_TargetAssemblyTypeName: BuffCard, Assembly-CSharp
+        m_MethodName: OnButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &-3299108750590747802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3646165298059895321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfd296ef04446c4abd6dd113d20cf1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buff: {fileID: 0}
+  buffDescription: {fileID: 0}
+  buffIcon: {fileID: 0}
 --- !u!1 &7786000877288603907
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +271,7 @@ GameObject:
   - component: {fileID: 6208406868455575608}
   - component: {fileID: 6825295763404054102}
   - component: {fileID: 7130045172144216892}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: BuffBackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +291,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8077131313865806416}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -303,7 +342,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7786000877288603907}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -351,7 +390,7 @@ GameObject:
   - component: {fileID: 8604879268340647819}
   - component: {fileID: 7809715007523785948}
   - component: {fileID: 8532404026704007631}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: BuffIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,7 +410,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8077131313865806416}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -406,7 +444,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 679da169449597f47b551ccf58105b25, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

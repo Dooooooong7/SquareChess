@@ -1,9 +1,14 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Buff : ScriptableObject,IComparable<Buff>
 {
     public int id;
+    public Sprite icon; // Buff图标
+    public String buffName; // Buff名称
+    [TextArea]public String description; // Buff描述
+    public List<Character> attainableCharacter; // 可获得该buff的角色
     public BuffTriggerType TriggerType;  // Buff触发类型
     public bool isActive; // Buff是否处于激活状态
     public BuffHandler target;// Buff目标

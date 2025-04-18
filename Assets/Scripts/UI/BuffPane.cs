@@ -11,6 +11,7 @@ public class BuffPane : MonoBehaviour
 
     private IEnumerator ShowPanel(GameObject gameObject)
     {
+        BuffManager.Instance.GenerateBuffCard();
         float timer = 0;
         while (timer < 1)
         {

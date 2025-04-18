@@ -7,7 +7,6 @@ public class EnemyManager : Singleton<EnemyManager>
 {
     [FormerlySerializedAs("enemyPrefabList")] public EnemyPoolSO enemyPoolSO;
     public Enemy nowEnemy;
-
     
     public void ClearChessBoard()
     {

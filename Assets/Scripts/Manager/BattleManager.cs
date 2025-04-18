@@ -15,6 +15,8 @@ public class BattleManager : Singleton<BattleManager>
     public ObjectEventSO endTurnEventSO;
     public int enemiesDefeated;
     public int enemiesTotal;
+    public BuffPane buffPane;
+    public bool isGameEnd = false;
     
     private int GetEnemyNum()
     {
@@ -29,12 +31,13 @@ public class BattleManager : Singleton<BattleManager>
     public void SetRoomData(RoomSaveData roomData)
     {
         roomSaveData = roomData;
-        currentRound = 1;
+        currentRound = 0;
         totalRounds = roomSaveData.roundNum;
         enemiesPerRound = roomSaveData.enemyPerRound;
         heroesPerRound = roomSaveData.heroPerRound;
         HandManager.Instance.InitializeList();
         enemiesTotal = GetEnemyNum();
+        isGameEnd = false;
         StartCoroutine(StartNewRound());
     }
 
@@ -45,11 +48,16 @@ public class BattleManager : Singleton<BattleManager>
     
     public IEnumerator StartNewRound()
     {
+        currentRound++;
         // 除第一回合外，开始下一回合前等待攻击结算
         if (currentRound > 1)
         {
             yield return StartCoroutine(ExecuteAttack());
             yield return StartCoroutine(ExcuteBuff());
+        }
+        if (isGameEnd)
+        {
+            yield break;
         }
         if (currentRound <= totalRounds)
         {
@@ -57,7 +65,7 @@ public class BattleManager : Singleton<BattleManager>
 
             EnemyManager.Instance.ProduceEnemy(enemiesPerRound[currentRound - 1]);
             HandManager.Instance.CreateHeroesThisRound(heroesPerRound[currentRound - 1]);
-            currentRound++;
+            
         }
         else
         {
@@ -85,15 +93,10 @@ public class BattleManager : Singleton<BattleManager>
             {
                 yield return new WaitForSeconds(0.05f);
             }
-            cell.spriteRenderer.enabled = false; 
-            
-            // 检查是否击败全部敌人
-            if (enemiesDefeated >= enemiesTotal)
-            {
-                loadMapEventSO.RaiseEvent(null, this);
-                // TODO: get buff
-                yield break;
-            }
+            cell.spriteRenderer.enabled = false;
+
+            StartCoroutine(CheckEndGame());
+            if (isGameEnd) break;
         }
     }
 
@@ -101,6 +104,25 @@ public class BattleManager : Singleton<BattleManager>
     {
         endTurnEventSO.RaiseEvent(null,this);
         yield return new WaitForSeconds(1f);
+        
+        StartCoroutine(CheckEndGame());
+    }
+
+    private IEnumerator CheckEndGame()
+    {
+        if (isGameEnd)
+        {
+            yield break;
+        }
+        // 检查是否击败全部敌人
+        if (enemiesDefeated >= enemiesTotal)
+        {
+            // loadMapEventSO.RaiseEvent(null, this);
+            // TODO: get buff
+            buffPane.ShowBuffPanel();
+            isGameEnd = true;
+            yield break;
+        }
     }
     
 }

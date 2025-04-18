@@ -12,8 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba106dd47ab8a194f89e0bacebbd7acf, type: 3}
   m_Name: BleedBuff
   m_EditorClassIdentifier: 
+  id: 0
+  icon: {fileID: 21300000, guid: 834640c3a0efa414eb1cda6c48e3f2de, type: 3}
+  buffName: 
+  description: "\u6BCF\u56DE\u5408\u7ED3\u675F\u540E\u635F\u5931\u4E00\u5B9A\u8840\u91CF"
+  attainableCharacter:
+  - {fileID: 6411888211392263472, guid: ecab84942a4ba0c4e91e62bb7b9c45ac, type: 3}
   TriggerType: 2
   isActive: 1
   target: {fileID: 0}
   caster: {fileID: 0}
+  mutilAddType: 4
+  isPermanent: 0
+  totalTime: 0
+  restTime: 0
+  layer: 0
+  triggerInterval: 0
   bleedDamage: 2

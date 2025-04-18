@@ -12,7 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06fd8046120715b408292e71a5e7a41f, type: 3}
   m_Name: ExertBleedBuff
   m_EditorClassIdentifier: 
+  id: 0
+  icon: {fileID: 21300000, guid: 834640c3a0efa414eb1cda6c48e3f2de, type: 3}
+  buffName: "\u653B\u51FB\u9644\u5E26\u6D41\u8840"
+  description: "\u653B\u51FB\u9644\u5E26\u6D41\u8840"
+  attainableCharacter:
+  - {fileID: 2583330853097909938, guid: d414e3c6a4ebd8047a31a7cffb39489a, type: 3}
   TriggerType: 1
   isActive: 1
   target: {fileID: 0}
   caster: {fileID: 0}
+  mutilAddType: 4
+  isPermanent: 0
+  totalTime: 0
+  restTime: 0
+  layer: 0
+  triggerInterval: 0
