@@ -35,11 +35,13 @@ public abstract class Buff : ScriptableObject,IComparable<Buff>
     {
         // 初始化时的一些操作
     }
-    
-    public virtual void SetTarget(BuffHandler target)
+
+    public virtual void InitializeBeforeTrigger(object value)
     {
-        this.target = target;
+        
     }
+    
+    // public virtual void 
     
     // 触发效果的具体实现
     public virtual void OnTriggerEffect()

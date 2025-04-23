@@ -13,7 +13,7 @@ public class Detector : MonoBehaviour
     
     private void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("触发进入事件，检测到: " + other.name);
+        // Debug.Log("触发进入事件，检测到: " + other.name);
         if (other.CompareTag("Enemy"))
         {
             Enemy enemy = other.GetComponent<Enemy>();

@@ -5,11 +5,12 @@ using UnityEngine;
 public class BuffHandler : MonoBehaviour
 {
     public List<Buff> buffs = new List<Buff>();
-
+    
     // 添加Buff
     public void AddBuff(Buff buff)
     {
         buff.Initialize(this);  // 初始化Buff
+       // 处理重复Buff
         Buff previous = buffs.Find(p => p.Equals(buff));
         if (previous == null)
         {
@@ -46,12 +47,14 @@ public class BuffHandler : MonoBehaviour
     }
 
     // 执行放置角色事件，触发相应Buff
-    public void PlaceCharacter()
+    public void OnPlaceCharacter()
     {
         foreach (var buff in buffs)
         {
             if (buff.TriggerType == BuffTriggerType.OnPlace)
             {
+                Debug.Log("OnPlaceCharacter:" + buff.name);
+                buff.InitializeBeforeTrigger(GetComponent<Hero>());
                 buff.OnTriggerEffect();
             }
         }
@@ -65,7 +68,7 @@ public class BuffHandler : MonoBehaviour
         {
             if (buff.TriggerType == BuffTriggerType.OnAttack)
             {
-                buff.SetTarget(enemy.GetComponent<BuffHandler>());
+                buff.InitializeBeforeTrigger(enemy.GetComponent<BuffHandler>());
                 buff.OnTriggerEffect();
             }
         }

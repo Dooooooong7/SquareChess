@@ -18,17 +18,17 @@ MonoBehaviour:
   m_GUID: 45f3e5f1181c4e043a1c607dc1dbc24a
   m_SerializeEntries:
   - m_GUID: 2c56a1275fa3f9844b46509000c34f49
-    m_Address: Assets/Scenes/Map.unity
+    m_Address: Map
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2cda990e2423bbf4892e6590ba056729
-    m_Address: Assets/Scenes/BattleField.unity
+    m_Address: BattleField
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a7ff045ab3740af4bb320f756db4df9c
-    m_Address: Assets/Scenes/StartScene.unity
+    m_Address: StartScene
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

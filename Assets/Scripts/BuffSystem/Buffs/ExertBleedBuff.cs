@@ -15,6 +15,19 @@ public class ExertBleedBuff : Buff
         id = 1;
     }
     
+    public  void SetTarget(BuffHandler target)
+    {
+        this.target = target;
+    }
+
+    public override void InitializeBeforeTrigger(object value)
+    {
+        if (value is BuffHandler target)
+        {
+            SetTarget(target);
+        }
+    }
+
     public override void OnTriggerEffect()
     {
         target.AddBuff(ScriptableObject.CreateInstance<BleedBuff>());

@@ -111,9 +111,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: 
   health: 0
-  attack: 8
+  attack: 5
   defense: 0
   buffHandler: {fileID: 0}
+  row: 0
+  column: 0
   heroType: 0
   nowEnemy: {fileID: 0}
   canAttack: 0

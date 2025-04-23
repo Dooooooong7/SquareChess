@@ -30,15 +30,15 @@ public class Wizard : Hero
         return null;
     }
 
-    public override void Attack()
-    {
-        // 实现攻击逻辑
-        if (nowEnemy != null)
-        {
-            Debug.Log("attack");
-            nowEnemy.TakeDamage(attack);
-        }
-    }
+    // public override void Attack()
+    // {
+    //     // 实现攻击逻辑
+    //     if (nowEnemy != null)
+    //     {
+    //         Debug.Log("attack");
+    //         nowEnemy.TakeDamage(attack);
+    //     }
+    // }
 
     private void OnTriggerStay2D(Collider2D other)
     {

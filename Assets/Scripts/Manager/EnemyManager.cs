@@ -44,6 +44,9 @@ public class EnemyManager : Singleton<EnemyManager>
                 Enemy enemyPrefab = GetEnemyPrefab(enemy.enemyType);
                 if (enemyPrefab != null)
                 {
+                    // 设置敌人预制体的行和列
+                    enemyPrefab.row = CellManager.Instance.cellList[randIndex].row;
+                    enemyPrefab.column = CellManager.Instance.cellList[randIndex].column;
                     nowEnemy = Instantiate(enemyPrefab,CellManager.Instance.cellList[randIndex].transform); 
                     nowEnemy.transform.localPosition = new Vector3(0,-0.5f,0);
                 }

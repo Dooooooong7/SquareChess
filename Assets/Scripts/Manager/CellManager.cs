@@ -12,4 +12,5 @@ public class CellManager : Singleton<CellManager>
     {
         restCell = cellList.Count;
     }
+    
 }

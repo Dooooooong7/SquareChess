@@ -25,14 +25,20 @@ public class Hero : Character
         textMeshPro = GetComponentInChildren<TextMeshPro>();
         textMeshPro.text = attack.ToString();
     }
+
+    public void RefreshText()
+    {
+        textMeshPro.text = attack.ToString();
+    }
+    
     public virtual Enemy SearchEnemy()
     {
         return null;
     }
     
-    public virtual void Attack()
+    public virtual bool Attack()
     {
-        
+        return true;
     }
 
     public virtual void CheckEnemyInRange()

@@ -10,6 +10,8 @@ public abstract class Character : MonoBehaviour
     public int attack;
     public int defense;
     public BuffHandler buffHandler;
+    public int row;
+    public int column;
 
     protected virtual void Awake()
     {
@@ -26,9 +28,10 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public virtual void Attack(Character target)
+    public virtual bool Attack(Character target)
     {
         target.TakeDamage(attack);
+        return true;
     }
 
     protected virtual void Die()

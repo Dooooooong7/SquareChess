@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Warrior : Hero
 {
-    
     public override Enemy SearchEnemy()
     {
         if (enemiesInRange.Count > 0)
@@ -17,7 +16,7 @@ public class Warrior : Hero
         return null;
     }
 
-    public override void Attack()
+    public override bool Attack()
     {
         nowEnemy = SearchEnemy();
         // 实现攻击逻辑
@@ -26,7 +25,10 @@ public class Warrior : Hero
             Debug.Log("attack");
             nowEnemy.TakeDamage(attack);
             buffHandler.OnAttack(nowEnemy);
+            return true;
         }
+
+        return false;
     }
 
     private void OnTrigger2DEnter(Collider other)

@@ -8,7 +8,9 @@ public class Cell : MonoBehaviour
     public bool isEmpty = true;
     public Hero heroAtCell;
     public SpriteRenderer spriteRenderer;
-
+    public int row;
+    public int column;
+    
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();

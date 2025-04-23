@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BattleManager : Singleton<BattleManager>
@@ -17,6 +18,11 @@ public class BattleManager : Singleton<BattleManager>
     public int enemiesTotal;
     public BuffPane buffPane;
     public bool isGameEnd = false;
+    
+    [Header("回合信息")]
+    public TextMeshProUGUI roundText;
+    public TextMeshProUGUI enemyText;
+    public TextMeshProUGUI heroText;
     
     private int GetEnemyNum()
     {
@@ -45,10 +51,20 @@ public class BattleManager : Singleton<BattleManager>
     {
         StartCoroutine(StartNewRound());
     }
+
+    public void SetRoundInfo()
+    {
+        roundText.text = $"Round {currentRound}/{totalRounds}";
+        enemyText.text = $"EnemiesNextRound: {enemiesPerRound[currentRound]}";
+        heroText.text = $"HeroesNextRound: {heroesPerRound[currentRound]}";
+    }
     
     public IEnumerator StartNewRound()
     {
         currentRound++;
+
+        SetRoundInfo();
+        
         // 除第一回合外，开始下一回合前等待攻击结算
         if (currentRound > 1)
         {
@@ -85,9 +101,11 @@ public class BattleManager : Singleton<BattleManager>
             if (cell.heroAtCell != null)
             {
                 // 执行攻击操作
-                cell.heroAtCell.Attack();  // 假设 Hero 类有一个 Attack 方法
-                Debug.Log($"英雄 {cell.heroAtCell.name} 攻击了敌人！");
-                yield return new WaitForSeconds(1.5f);
+                if (cell.heroAtCell.Attack())
+                {
+                    Debug.Log($"英雄 {cell.heroAtCell.name} 攻击了敌人！");
+                    yield return new WaitForSeconds(1.5f);
+                }
             }
             else
             {

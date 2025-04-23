@@ -112,10 +112,17 @@ public class HandManager : Singleton<HandManager>
                 RegisterHero(nowHero);
                 Destroy(nowCard.gameObject);
                 
+                // 设置当前英雄的行和列
+                nowHero.row = cell.row;
+                nowHero.column = cell.column;
+                                
                 hasHero = false;
                 cell.isEmpty = false;
                 CellManager.Instance.restCell--;
                 cell.heroAtCell = nowHero;
+                
+                nowHero.GetComponent<BuffHandler>().OnPlaceCharacter();
+                
                 return true;
             }
         }
